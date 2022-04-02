@@ -67,7 +67,7 @@ namespace Revit_API_6_2
             {
                 ts.Start();
 
-                doc.Create.NewFamilyInstance();
+                //doc.Create.NewFamilyInstance();
 
                 ts.Commit();
             }
