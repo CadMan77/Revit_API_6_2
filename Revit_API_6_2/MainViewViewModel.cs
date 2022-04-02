@@ -1,6 +1,6 @@
 ﻿using Autodesk.Revit;
-//using Autodesk.Revit.Creation;
 using Autodesk.Revit.DB;
+using Autodesk.Revit.DB.Structure;
 using Autodesk.Revit.UI;
 using Prism.Commands;
 using System;
@@ -18,9 +18,9 @@ namespace Revit_API_6_2
         private Document doc;
 
         public List<FamilySymbol> ProjectFurnitureTypes { get; } = new List<FamilySymbol>();
-        public List<Level> ProjectBaseConstraints { get; } = new List<Level>();
+        public List<Level> ProjectLevels { get; } = new List<Level>();
         public FamilySymbol SelectedFurnitureType { get; set; }
-        public Level SelectedBaseConstraint { get; set; }
+        public Level SelectedLevel { get; set; }
 
         public DelegateCommand ApplyCommand { get; }
 
@@ -46,28 +46,31 @@ namespace Revit_API_6_2
 
             //TaskDialog.Show("projectFurnitureTypes", $"{projectFurnitureTypes.Count}");
 
-            List<Level> projectBaseConstraints = new FilteredElementCollector(doc)
+            List<Level> projectLevels = new FilteredElementCollector(doc)
                 .OfClass(typeof(Level))
                 .Cast<Level>()
                 .ToList();
 
-            ProjectBaseConstraints = projectBaseConstraints;
+            ProjectLevels = projectLevels;
 
-            //TaskDialog.Show("ProjectBaseConstraints", $"{ProjectBaseConstraints.Count}");            
+            //TaskDialog.Show("ProjectLevels", $"{ProjectLevels.Count}");            
         }
 
         private void OnApplyCommand()
         {
-            if (insertPoint == null || SelectedFurnitureType == null || SelectedBaseConstraint == null)
-            {
+            if (insertPoint == null || SelectedFurnitureType == null || SelectedLevel == null)
                 return;
-            }
+
+            FamilyInstance fi = null;
 
             using (Transaction ts = new Transaction(doc, "Place Family Instance Transaction"))
             {
                 ts.Start();
 
-                //doc.Create.NewFamilyInstance();
+                if (!SelectedFurnitureType.IsActive)
+                    SelectedFurnitureType.Activate();
+
+                fi = doc.Create.NewFamilyInstance(insertPoint, SelectedFurnitureType, SelectedLevel, StructuralType.NonStructural);
 
                 ts.Commit();
             }

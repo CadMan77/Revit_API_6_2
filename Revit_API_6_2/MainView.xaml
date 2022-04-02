@@ -13,7 +13,7 @@
         <ComboBox Margin="0,0,0,10" ItemsSource="{Binding ProjectFurnitureTypes}" SelectedValue="{Binding SelectedFurnitureType}" DisplayMemberPath="Name"/>
 
         <Label Content="Базовый уровень"/>
-        <ComboBox Margin="0,0,0,20" ItemsSource="{Binding ProjectBaseConstraints}" SelectedValue="{Binding SelectedBaseConstraint}" DisplayMemberPath="Name"/>
+        <ComboBox Margin="0,0,0,20" ItemsSource="{Binding ProjectLevels}" SelectedValue="{Binding SelectedLevel}" DisplayMemberPath="Name"/>
 
         <Button Content="  Применить  " Padding="2" HorizontalAlignment="Center" Command="{Binding ApplyCommand}"/>
     </StackPanel>
