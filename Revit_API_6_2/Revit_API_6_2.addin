@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+	<AddIn Type="Command">
+		<Assembly>"C:\ProgramData\RevitAPITraining\Revit_API_6_2.dll"</Assembly>
+		<AddInId>32E6C6FA-ECB6-4DD2-9175-4101103BE8C4</AddInId>
+		<FullClassName>Revit_API_6_2.Main</FullClassName>
+		<VendorId>ADSK</VendorId>
+		<Text>RevitAPI 6.2 Размещение элементов точечных семейств (мебель)</Text>
+	</AddIn>
+</RevitAddIns>
